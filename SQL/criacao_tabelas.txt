@@ -1,0 +1,227 @@
+﻿/*
+Created: 12/09/2017
+Modified: 13/09/2017
+Model: Oracle 11g Release 1
+Database: Oracle 11g Release 1
+*/
+
+
+-- Create tables section -------------------------------------------------
+
+-- Table usuario
+
+CREATE TABLE usuario(
+  idusuario Integer NOT NULL,
+  login Varchar2(150 ),
+  pwd Varchar2(50 ),
+  nome Varchar2(100 ),
+  endereco Varchar2(200 ),
+  numero Integer,
+  complemento Varchar2(50 ),
+  idgrupo Integer,
+  cpf Char(11 )
+)
+/
+
+-- Create indexes for table usuario
+
+CREATE INDEX IX_Relationship6 ON usuario (idgrupo)
+/
+
+-- Add keys for table usuario
+
+ALTER TABLE usuario ADD CONSTRAINT Key1 PRIMARY KEY (idusuario)
+/
+
+-- Table livro
+
+CREATE TABLE livro(
+  idlivro Integer NOT NULL,
+  titulo Varchar2(300 ),
+  resumo Varchar2(2000 ),
+  idautor Integer,
+  ativo Char(1 ),
+  ideditora Integer,
+  idcategoria integer
+)
+/
+
+-- Create indexes for table livro
+
+CREATE INDEX IX_Relationship1 ON livro (idautor)
+/
+
+CREATE INDEX IX_Relationship2 ON livro (ideditora)
+/
+
+CREATE INDEX IX_Relationship7 ON livro (idcategoria)
+/
+
+-- Add keys for table livro
+
+ALTER TABLE livro ADD CONSTRAINT Key2 PRIMARY KEY (idlivro)
+/
+
+-- Table autor
+
+CREATE TABLE autor(
+  idautor Integer NOT NULL,
+  nome Varchar2(150 )
+)
+/
+
+-- Add keys for table autor
+
+ALTER TABLE autor ADD CONSTRAINT Key3 PRIMARY KEY (idautor)
+/
+
+-- Table editora
+
+CREATE TABLE editora(
+  ideditora Integer NOT NULL,
+  nome Varchar2(200 )
+)
+/
+
+-- Add keys for table editora
+
+ALTER TABLE editora ADD CONSTRAINT Key4 PRIMARY KEY (ideditora)
+/
+
+-- Table leitura_usuario
+
+CREATE TABLE leitura_usuario(
+  dtleitura Timestamp(6) NOT NULL,
+  idusuario Integer NOT NULL,
+  idlivro Integer NOT NULL
+)
+/
+
+-- Create indexes for table leitura_usuario
+
+CREATE INDEX IX_Relationship3 ON leitura_usuario (idusuario)
+/
+
+CREATE INDEX IX_Relationship4 ON leitura_usuario (idlivro)
+/
+
+-- Add keys for table leitura_usuario
+
+ALTER TABLE leitura_usuario ADD CONSTRAINT Key5 PRIMARY KEY (dtleitura,idusuario,idlivro)
+/
+
+-- Table financeiro_boletos
+
+CREATE TABLE financeiro_boletos(
+  idboleto Integer NOT NULL,
+  dtemissao Date,
+  dtvencimento Date,
+  valor Float,
+  juros_pagos Float,
+  pago Char(1 ),
+  idusuario Integer
+)
+/
+
+-- Create indexes for table financeiro_boletos
+
+CREATE INDEX IX_Relationship5 ON financeiro_boletos (idusuario)
+/
+
+-- Add keys for table financeiro_boletos
+
+ALTER TABLE financeiro_boletos ADD CONSTRAINT Key6 PRIMARY KEY (idboleto)
+/
+
+-- Table grupo_usuarios
+
+CREATE TABLE grupo_usuarios(
+  idgrupo Integer NOT NULL,
+  descricao Char(50 )
+)
+/
+
+
+
+-- Add keys for table grupo_usuarios
+
+ALTER TABLE grupo_usuarios ADD CONSTRAINT Key7 PRIMARY KEY (idgrupo)
+/
+
+-- Table categoria
+
+CREATE TABLE categoria(
+  idcategoria integer NOT NULL,
+  nome varchar2(200 )
+)
+/
+
+-- Add keys for table categoria
+
+ALTER TABLE categoria ADD CONSTRAINT Key8 PRIMARY KEY (idcategoria)
+/
+
+-- Create relationships section ------------------------------------------------- 
+
+ALTER TABLE livro ADD CONSTRAINT Relationship1 FOREIGN KEY (idautor) REFERENCES autor (idautor)
+/
+
+ALTER TABLE livro ADD CONSTRAINT Relationship2 FOREIGN KEY (ideditora) REFERENCES editora (ideditora)
+/
+
+ALTER TABLE leitura_usuario ADD CONSTRAINT Relationship3 FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
+/
+
+ALTER TABLE leitura_usuario ADD CONSTRAINT Relationship4 FOREIGN KEY (idlivro) REFERENCES livro (idlivro)
+/
+
+ALTER TABLE financeiro_boletos ADD CONSTRAINT Relationship5 FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
+/
+
+ALTER TABLE usuario ADD CONSTRAINT Relationship6 FOREIGN KEY (idgrupo) REFERENCES grupo_usuarios (idgrupo)
+/
+
+ALTER TABLE livro ADD CONSTRAINT Relationship7 FOREIGN KEY (idcategoria) REFERENCES categoria (idcategoria)
+/
+
+/* insere o grupo de usuários */
+insert into grupo_usuarios(idgrupo, descricao) values (1,'Administradores');
+insert into grupo_usuarios(idgrupo, descricao) values (2, 'Leitores');
+
+/* insere um usuário admin */
+insert into usuario (idusuario, login, pwd, nome, idgrupo) values (1,'1', '1', 'Administrador', 1);
+
+/* insere um usuário normal */
+insert into usuario (idusuario, login, pwd, nome, idgrupo) values (2,'usuario', '1', 'Usuario da Silva', 2);
+
+/* insere categoria de livro */
+insert into categoria (idcategoria, nome) values (1, 'Romance');
+insert into categoria (idcategoria, nome) values (2, 'Ficção Científica');
+insert into categoria (idcategoria, nome) values (3, 'Drama');
+insert into categoria (idcategoria, nome) values (4, 'Adolescente');
+insert into categoria (idcategoria, nome) values (5, 'Comédia');
+insert into categoria (idcategoria, nome) values (6, 'Terror');
+insert into categoria (idcategoria, nome) values (7, 'Infantil');
+insert into categoria (idcategoria, nome) values (8, 'História');
+insert into categoria (idcategoria, nome) values (9, 'Artes');
+
+insert into autor (idautor, nome) values (1, 'A.C. Meyer');
+insert into autor (idautor, nome) values (2, 'João Ribeiro');
+insert into autor (idautor, nome) values (3, 'Paulo Coelho');
+insert into autor (idautor, nome) values (4, 'Chris R.S.');
+insert into autor (idautor, nome) values (5, 'Outro autor');
+insert into autor (idautor, nome) values (6, 'William Shakespeare');
+
+insert into editora (ideditora, nome) values (1, 'Editora Equação');
+insert into editora (ideditora, nome) values (2, 'Makron Books');
+insert into editora (ideditora, nome) values (3, 'Editora Ovelha');
+insert into editora (ideditora, nome) values (4, 'Editora Nosso Teste');
+insert into editora (ideditora, nome) values (5, 'Editora Bacana S/A');
+insert into editora (ideditora, nome) values (6, 'Editora Ovelha');
+
+insert into livro(idlivro, titulo, resumo, idautor, ativo, ideditora, idcategoria) values (1, 'A Comédia dos Erros','Sem resumo cadastrado',6,'S', 3,5);
+insert into livro(idlivro, titulo, resumo, idautor, ativo, ideditora, idcategoria) values (2, 'Louca por Você','Sem resumo cadastrado',1,'S', 3,4);
+insert into livro(idlivro, titulo, resumo, idautor, ativo, ideditora, idcategoria) values (3, 'Mademoiselle Zaira','é um romance que mostra a força transformadora de uma garota nos Anos Dourados, que engravida aos 15 anos e luta contra preconceitos. Ela será capaz de superar essas barreiras e viver um grande amor ao reencontrar seu amigo de infância?',3,'S', 2,1);
+
+
+commit;

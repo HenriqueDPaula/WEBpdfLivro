@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<h:commandLink action="cadastroFinanceiro"
+				value="Inserir novo boleto" />
+			<h1>Boletos</h1>
+
+			<h:dataTable value="#{financeiroBean.boletos}" var="financeiro"
+				styleClass="order-table table " headerClass="order-table-header"
+				rowClasses="order-table-odd-row,order-table-even-row">
+
+				<h:column>
+					<f:facet name="header">
+					</f:facet>
+					<h:outputLink value="#{financeiro.dtEmissao}" />
+					<h:commandLink
+						action="#{financeiroBean.excluir(financeiro.idBoleto)}"
+						onclick="if (!confirm('Deseja realmente excluir este registro?')) return false; "
+						value="Excluir" styleClass="btn btn-xs btn-danger" />
+					<h:commandLink immediate="true"
+						action="#{financeiroBean.caminhoEditar(financeiro.idBoleto)}"
+						value="Marcar como pago" styleClass="btn btn-xs btn-info" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data Emissão</f:facet>
+					<h:outputText value="#{financeiro.dtEmissao}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Data Vencimento</f:facet>
+					<h:outputText value="#{financeiro.dtVencimento}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Valor</f:facet>
+					<h:outputText value="#{financeiro.valor}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Juros</f:facet>
+					<h:outputText value="#{financeiro.jurosPago}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">id Usuario</f:facet>
+					<h:outputText value="#{financeiro.idUsuario}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Pago</f:facet>
+					<h:outputText value="#{financeiro.pago}" />
+				</h:column>
+
+			</h:dataTable>
+
+			<h:commandLink action="/admin/inicial" value="Voltar"
+				immediate="true" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<ui:composition template="/template/template.xhtml">
+
+	<ui:define name="content">
+		<h1>Cadastro</h1>
+
+		<h:form>
+			<div class="row">
+
+
+				<div class="col-md-4 borda_arredondada" id="div_login_box">
+					<div class="errorMessage">
+						<h:messages globalOnly="true" errorClass=""></h:messages>
+					</div>
+					<br />
+					<h:message for="nome" infoClass="info" errorClass="error" />
+					<br />
+					<h:outputLabel value="Informe seu nome" for="nome" />
+					<h:inputText id="nome" value="#{adesaoBean.nomeUsuario}" size="50"
+						required="true"
+						validatorMessage="Nome deve ter no máximo 50 caracteres"
+						requiredMessage="Nome é obrigatório" styleClass="form-control">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+
+					<br />
+					<h:message for="login" infoClass="info" errorClass="error" />
+					<br />
+					<h:outputLabel value="Informe seu usuario" for="login" />
+					<h:inputText id="login" value="#{adesaoBean.loginUsuario}"
+						size="50" required="true" requiredMessage="Login é obrigatório"
+						styleClass="form-control">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+
+					<br />
+					<h:message for="senha" infoClass="info" errorClass="error" />
+					<br />
+					<h:outputLabel value="Informe sua senha" for="senha" />
+					<h:inputText id="senha" value="#{adesaoBean.senhaUsuario}"
+						size="50" required="true" requiredMessage="Senha é obrigatório"
+						styleClass="form-control">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+
+					<br />
+					<h:message for="senha2" infoClass="info" errorClass="error" />
+					<br />
+					<h:outputLabel value="Confirme sua senha" for="senha2" />
+					<h:inputText id="senha2" value="#{adesaoBean.senhaUsuario2}"
+						size="50" required="true"
+						requiredMessage="Confirmaçâo de senha é obrigatório"
+						styleClass="form-control">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+
+					<br />
+					<h:message for="enderecoUsuario" infoClass="info"
+						errorClass="error" />
+					<br />
+					<h:outputLabel value="Endereço" for="enderecoUsuario" />
+					<h:inputText id="enderecoUsuario"
+						value="#{adesaoBean.enderecoUsuario}" size="50" required="true"
+						requiredMessage="Endereço é obrigatório" styleClass="form-control">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+
+					<br />
+					<h:message for="enderecoNumero" infoClass="info" errorClass="error" />
+					<br /> <br />
+					<h:outputLabel value="Numero" for="enderecoNumero" />
+					<h:inputText id="enderecoNumero"
+						value="#{adesaoBean.enderecoNumero}" size="50" required="true"
+						validatorMessage="Nome deve ter no máximo 50 caracteres"
+						requiredMessage="Numero do endereço é obrigatório"
+						styleClass="form-control">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+
+					<br />
+					<h:outputLabel value="Complemento" for="enderecoComplemento" />
+					<h:inputText id="enderecoComplemento"
+						value="#{adesaoBean.complementoEndereco}" size="50"
+						required="true"
+						validatorMessage="Nome deve ter no máximo 50 caracteres"
+						requiredMessage="Nome é obrigatório" styleClass="form-control">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+
+					<br />
+					<h:message for="CPFUsuario" infoClass="info" errorClass="error" />
+					<br />
+					<h:outputLabel value="CPF" for="CPFUsuario" />
+					<h:inputText id="CPFUsuario" value="#{adesaoBean.cpfUsuario}"
+						size="11" required="true"
+						validatorMessage="CPF deve ter 11 digitos"
+						requiredMessage="CPF é obrigatório" styleClass="form-control">
+						<f:validateLength minimum ="11" maximum = "11" />
+					</h:inputText>
+					<br />
+
+					<h:commandButton action="#{adesaoBean.incluir()}" value="Cadastrar"
+						styleClass="btn btn-primary" />
+						
+						
+
+
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+
+
+
+</html>
+

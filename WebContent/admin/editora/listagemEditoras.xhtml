@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<div class="div_botoes_superiores_listagem">
+
+				<h:commandButton action="#{editoraBean.prepararInserir()}"
+					value="Inserir nova editora" styleClass="btn btn-primary" />
+			</div>
+
+			<br />
+			<br />
+			<h:messages globalOnly="true" errorcClass="error">
+			</h:messages>
+
+
+			<h3>Editoras cadastradas</h3>
+
+			<h:dataTable value="#{editoraBean.listaEditoras}" var="editora"
+				styleClass="order-table table " headerClass="order-table-header"
+				rowClasses="order-table-odd-row,order-table-even-row">
+
+				<h:column>
+					<f:facet name="header">
+					</f:facet>
+					<h:outputLink value="#{editora.nome}" />
+					<h:commandLink action="#{editoraBean.editar(editora.codigo)}"
+						value="Editar" styleClass="btn btn-xs btn-info" />
+
+					<h:commandLink
+						onclick="if (!confirm('Deseja realmente excluir este registro?')) return false; "
+						action="#{editoraBean.excluir(editora.codigo)}" value="Excluir"
+						styleClass="btn btn-xs btn-danger" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Código</f:facet>
+					<h:outputText value="#{editora.codigo}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{editora.nome}" />
+				</h:column>
+
+
+			</h:dataTable>
+
+			<h:commandLink action="/admin/inicial" value="Voltar" />
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

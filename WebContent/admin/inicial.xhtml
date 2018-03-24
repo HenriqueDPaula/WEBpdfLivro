@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<ui:composition template="/template/template.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-2">
+					<p style="font-size: x-large">
+						<i class="fa fa-book icon-large" aria-hidden="true"></i>
+					</p>
+
+					<h:commandLink action="#{livroBean.listar()}" value="Livros"> </h:commandLink>
+				</div>
+
+				<div class="col-md-2">
+					<p style="font-size: x-large">
+						<i class="fa fa-male icon-large" aria-hidden="true"></i>
+					</p>
+					<h:commandLink action="#{autorBean.listar()}" value="Autores" />
+				</div>
+
+				<div class="col-md-2">
+					<p style="font-size: x-large">
+						<i class="fa fa-database icon-large" aria-hidden="true"></i>
+					</p>
+					<h:commandLink action="#{categoriaBean.listar()}"
+						value="Categorias" />
+				</div>
+				<div class="col-md-3"></div>
+
+			</div>
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-2">
+					<p style="font-size: x-large">
+						<i class="fa fa-industry icon-large" aria-hidden="true"></i>
+					</p>
+					<h:commandLink action="#{editoraBean.listar()}" value="Editoras" />
+				</div>
+
+				<div class="col-md-2">
+					<p style="font-size: x-large">
+						<i class="fa fa-usd icon-3x" aria-hidden="true"></i>
+					</p>
+					<h:commandLink action="#{financeiroBean.listar()}" value="Boletos" />
+				</div>
+				
+				<div class="col-md-2">
+					<!-- falta um  item aqui -->
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+
+
+<h:head>
+	<title>OpenBooks</title>
+	<h:outputStylesheet library="bootstrap" name="css/bootstrap.css" />
+	<h:outputStylesheet library="css" name="estilo_custom.css" />
+</h:head>
+<body>
+	<div class="conteiner">
+		<div id="div_header">Projeto OpenBooks</div>
+
+		<h:form>
+			<h2>
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				Manutenção de cadastros
+			</h2>
+			<ul>
+				<li>Usuários
+					<ul>
+						<li>Novo</li>
+						<li>Alterar</li>
+						<li>Excluir</li>
+					</ul>
+
+				</li>
+				<li>Livros
+					<ul>
+						<li><h:commandLink action="livro/cadastroLivro"
+								value="Inserir novo livro" /></li>
+						<li><h:commandLink action="livro/listagemLivros"
+								value="Editar" /></li>
+						<li><h:commandLink action="livro/listagemLivros"
+								value="Excluir" /></li>
+					</ul>
+
+				</li>
+
+				<li><h:commandLink action="#{livroBean.listar()}"
+						value="Livros" /></li>
+
+				<li><h:commandLink action="#{autorBean.listar()}"
+						value="Autores" /></li>
+				<li><h:commandLink action="#{categoriaBean.listar()}"
+						value="Categorias" /></li>
+
+
+
+			</ul>
+
+			<h2>Manutenção financeira</h2>
+			<ul>
+				<li>Manutenção de contas a receber</li>
+			</ul>
+
+		</h:form>
+	</div>
+
+
+</body>
+</html>

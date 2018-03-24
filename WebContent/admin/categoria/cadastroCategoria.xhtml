@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<h:inputHidden id="codigoHidden" value="#{categoriaBean.idCategoria}" />
+			<div class="row">
+				<div class="col-lg-5">
+					<h:outputLabel value="Nome da categoria" for="nome" />
+					<h:inputText id="nome" value="#{categoriaBean.nomeCategoria}"
+						size="50" required="true"
+						validatorMessage="Nome deve ter no máximo 50 caracteres"
+						requiredMessage="Nome é obrigatório" styleClass="form-control">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+
+					&nbsp;
+					<h:message for="nome" infoClass="info" errorClass="error" />
+
+					<br />
+
+					<h:messages globalOnly="true" errorcClass="error">
+					</h:messages>
+				</div>
+			</div>
+
+
+
+			<h:commandButton action="#{categoriaBean.salvar()}" value="Salvar"
+				styleClass="btn btn-primary" />
+
+
+			<h:commandButton action="listagemCategorias" immediate="true"
+				value="Cancelar" styleClass="btn btn-danger" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+
+
+
+<h:head>
+	<title>OpenBooks</title>
+</h:head>
+
+<ui:composition template="/template/template.xhtml">
+	<ui:define name="content">
+
+		<h3>Cadastro de livro</h3>
+		<h:form enctype="multipart/form-data">
+
+			<h:inputHidden id="codigoHidden" value="#{livroBean.idlivro}"
+				size="1" />
+			<div class="row">
+				<div class="col-md-8">
+					<h:outputLabel value="Título:" for="nome" />
+					<h:inputText id="nome" value="#{livroBean.titulo}" size="50"
+						styleClass="form-control" required="true"
+						validatorMessage="Nome deve ter no máximo 50 caracteres"
+						requiredMessage="Nome é obrigatório">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<h:outputLabel value="Editora" for="cbxEditora" />
+					<h:selectOneMenu value="#{livroBean.editoraId}" id="cbxEditora"
+						styleClass="form-control">
+						<f:selectItems value="#{editoraBean.listaEditoras}"
+							var="editoraItem" itemValue="#{editoraItem.codigo}"
+							itemLabel="#{editoraItem.nome}" />
+					</h:selectOneMenu>
+				</div>
+
+				<div class="col-md-4">
+					<h:outputLabel value="Autor" for="cbxAutor" />
+					<h:selectOneMenu value="#{livroBean.autorId}" id="cbxAutor"
+						styleClass="form-control">
+						<f:selectItems value="#{autorBean.listaAutores}" var="autor"
+							itemValue="#{autor.codigo}" itemLabel="#{autor.nome}" />
+					</h:selectOneMenu>
+				</div>
+
+				<div class="col-md-4">
+					<h:outputLabel value="Categoria" for="cbxCategoria" />
+					<h:selectOneMenu value="#{livroBean.categoriaId}" id="cbxCategoria"
+						styleClass="form-control">
+						<f:selectItems value="#{categoriaBean.listaCategorias}"
+							var="categoria" itemValue="#{categoria.codigo}"
+							itemLabel="#{categoria.nome}" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+
+			<h:outputLabel value="Resumo do livro" for="txtResumo" />
+			<h:inputTextarea id="txtResumo" value="#{livroBean.resumo}"
+				styleClass="form-control" /> 
+
+		&nbsp;									
+     	<h:message for="nome" infoClass="info" errorClass="error" />
+
+			<br />
+
+			<h:messages globalOnly="true" errorcClass="error">
+			</h:messages>
+
+			<h:commandButton id="asd" action="#{livroBean.salvar()}"
+				value="Salvar" styleClass="btn" />
+
+
+			<h:commandButton action="listagemLivros" immediate="true"
+				value="Voltar" styleClass="btn" />
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>
+
+
+</html>
